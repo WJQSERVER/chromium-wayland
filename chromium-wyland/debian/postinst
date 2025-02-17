@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+  configure)
+    /usr/bin/patch-chromium-desktop || true
+    ;;
+  triggered)
+    /usr/bin/patch-chromium-desktop || true
+    ;;
+esac
+
+exit 0

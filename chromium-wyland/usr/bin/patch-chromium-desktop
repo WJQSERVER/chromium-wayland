@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+DESKTOP_FILE="/usr/share/applications/chromium.desktop"
+
+# 检查文件是否存在
+if [ ! -f "$DESKTOP_FILE" ]; then
+  exit 0
+fi
+
+# 检查文件是否已包含特定的 Exec 行，并应用补丁
+if grep -q "Exec=/usr/bin/chromium %U --ignore-gpu-blocklist --enable-zero-copy --enable-features=AcceleratedVideoDecodeLinuxGL --ozone-platform-hint=auto --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3" "$DESKTOP_FILE"; then
+    # 已经补丁
+    exit 0
+else
+    # 应用补丁
+    sed -i 's|Exec=/usr/bin/chromium %U|Exec=/usr/bin/chromium %U --ignore-gpu-blocklist --enable-zero-copy --enable-features=AcceleratedVideoDecodeLinuxGL --ozone-platform-hint=auto --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3|' "$DESKTOP_FILE"
+fi
+
+exit 0
