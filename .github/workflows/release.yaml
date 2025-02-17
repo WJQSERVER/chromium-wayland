@@ -22,7 +22,7 @@ jobs:
 
     - name: 构建deb包
       run: |
-        cd code-wayland
+        cd chromium-wayland
         debuild -us -uc -b
 
     - name: 获取deb包文件名
